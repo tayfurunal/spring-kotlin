@@ -1,0 +1,13 @@
+server:
+  port: 7879
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/kotlin-db
+    username: root
+    password: my-secret-pw
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    defer-datasource-initialization: true
