@@ -3,7 +3,9 @@ package com.tayfurunal.springkotlin.service
 import com.tayfurunal.springkotlin.converter.UserConverter
 import com.tayfurunal.springkotlin.helper.mockCreateUserRequest
 import com.tayfurunal.springkotlin.helper.mockUser
+import com.tayfurunal.springkotlin.helper.mockUserDto
 import com.tayfurunal.springkotlin.repository.UserRepository
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.BDDMockito.verifyNoMoreInteractions
@@ -35,6 +37,25 @@ class UserServiceTest(
         //then
         verify(userRepository).save(mockUser)
         verify(userConverter).toEntity(createUserRequest)
+        verifyNoMoreInteractions(userRepository, userConverter)
+    }
+
+    @Test
+    fun `it should get all user`() {
+        //given
+        val mockUser = mockUser()
+        val mockUserDto = mockUserDto()
+        `when`(userRepository.findAll()).thenReturn(listOf(mockUser))
+        `when`(userConverter.toDto(mockUser)).thenReturn(mockUserDto)
+
+        //when
+        val result = userService.getAll()
+
+        //then
+        assertThat(result.size).isEqualTo(1)
+        assertThat(result).containsExactly(mockUserDto)
+        verify(userRepository).findAll()
+        verify(userConverter).toDto(mockUser)
         verifyNoMoreInteractions(userRepository, userConverter)
     }
 }

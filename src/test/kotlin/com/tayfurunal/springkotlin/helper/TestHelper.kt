@@ -2,6 +2,7 @@ package com.tayfurunal.springkotlin.helper
 
 import com.tayfurunal.springkotlin.entity.User
 import com.tayfurunal.springkotlin.model.CreateUserRequest
+import com.tayfurunal.springkotlin.model.UserDto
 
 fun mockUser(
     id: Long = 1,
@@ -9,6 +10,13 @@ fun mockUser(
     surname: String = "Ünal",
     email: String = "mtayfurunal@gmail.com"
 ) = User(id, name, surname, email)
+
+fun mockUserDto(
+    id: Long = 1,
+    name: String = "Tayfur",
+    surname: String = "Ünal",
+    email: String = "mtayfurunal@gmail.com"
+) = UserDto(id, name, surname, email)
 
 fun mockCreateUserRequest(
     name: String = "Tayfur",
