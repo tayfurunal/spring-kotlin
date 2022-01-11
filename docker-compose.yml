@@ -1,0 +1,23 @@
+version: '3'
+services:
+  mysql-db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_DATABASE=my-db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=mysecretpw
+    ports:
+      - "3306:3306"
+
+  spring-kotlin:
+    image: tayfurunal/spring-kotlin
+    restart: always
+    environment:
+        - SPRING_DATASOURCE_DATABASE_HOST=mysql-db
+        - SPRING_DATASOURCE_DATABASE_NAME=my-db
+        - SPRING_DATASOURCE_USERNAME=root
+        - SPRING_DATASOURCE_PASSWORD=mysecretpw
+    ports:
+      - "7879:7879"
+    depends_on:
+      - mysql-db

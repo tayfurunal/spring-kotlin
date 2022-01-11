@@ -3,9 +3,9 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${SPRING_DATASOURCE_DATABASE_HOST:localhost}:3306/${SPRING_DATASOURCE_DATABASE_NAME:kotlin-db}
-    username: ${SPRING_DATASOURCE_USERNAME:root}
-    password: ${SPRING_DATASOURCE_PASSWORD:my-secret-pw}
+    url: jdbc:mysql://localhost:3306/kotlin-db
+    username: root
+    password: my-secret-pw
   jpa:
     hibernate:
       ddl-auto: update
