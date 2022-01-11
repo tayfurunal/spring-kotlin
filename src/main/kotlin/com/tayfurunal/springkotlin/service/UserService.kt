@@ -1,8 +1,9 @@
 package com.tayfurunal.springkotlin.service
 
 import com.tayfurunal.springkotlin.converter.UserConverter
-import com.tayfurunal.springkotlin.model.CreateUserRequest
-import com.tayfurunal.springkotlin.model.UserDto
+import com.tayfurunal.springkotlin.exception.SpringKotlinNotFoundException
+import com.tayfurunal.springkotlin.model.request.CreateUserRequest
+import com.tayfurunal.springkotlin.model.response.UserDto
 import com.tayfurunal.springkotlin.repository.UserRepository
 import org.springframework.stereotype.Service
 
@@ -17,8 +18,13 @@ class UserService(
         userRepository.save(user)
     }
 
-    fun getAll(): List<UserDto> {
+    fun findAll(): List<UserDto> {
         val users = userRepository.findAll()
         return users.map { userConverter.toDto(it) }
+    }
+
+    fun findById(id: Long): UserDto {
+        val user = userRepository.findById(id).orElseThrow { SpringKotlinNotFoundException("User not found by $id") }
+        return userConverter.toDto(user)
     }
 }
